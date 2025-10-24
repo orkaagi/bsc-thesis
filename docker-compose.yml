@@ -1,0 +1,38 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: bridge_deals_database
+      MYSQL_PASSWORD: HKcs55$*
+      MYSQL_ROOT_PASSWORD: HKcs55$*
+    ports:
+      - "3307:3307"
+    command: >
+      bash -c "chmod 644 /etc/mysql/conf.d/my.cnf && exec docker-entrypoint.sh mysqld"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./springboot_backend/mysql/mysql.cnf:/etc/mysql/conf.d/my.cnf
+      # - ./springboot_backend/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+  backend:
+    build: springboot_backend
+    restart: always
+    environment:
+      MYSQL_HOST: mysql
+    depends_on:
+      - mysql
+    ports:
+      - "8083:8083"
+
+  frontend: 
+    build: react_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8084:80"
+
+volumes:
+  mysql_data:
