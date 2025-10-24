@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer{
+    body, #main-content {
+        background-color: #f8f8f1 !important;
+    }
+
+    #root {
+        font-family: 'Poppins', sans-serif !important;        
+    }
+
+    p {
+        font-family: 'Merriweather', serif !important;
+        font-size: large !important;
+    }
+
+    #start-new-game {
+        background-color: #6ca229;
+        font-size: xx-large !important;
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    #start-new-game:hover {
+        background-color:  #4c8613;
+        font-size: xx-large !important;
+        color: white;
+        text-decoration: none !important;
+    }
+/*
+    #start-new-game-by-id {
+        background-color: #6ca229 !important;
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    #start-new-game-by-id:hover {
+        background-color:  #4c8613 !important;
+        color: white;
+        text-decoration: none !important;
+    }
+*/
+    #set-parameters {
+        font-size: large !important;
+        color: rgb(16, 16, 16) !important;
+    }
+
+    #set-parameters:hover {
+        font-size: large !important;
+        color: black !important;
+    }
+
+
+    #result-texts, #explain-text {
+        font-family: 'Merriweather', serif !important;
+    }
+
+    #explain-text {
+        font-size: x-large !important;
+    }
+
+    #register-button, #login-button {
+        background-color: #b1c64f !important;
+        color: white !important;
+    }
+
+    #register-button:hover, #login-button:hover {
+        background-color: #6ca229 !important;
+        color: white !important;
+    }
+
+
+    .form-check-input:checked {
+        background-color: #4c8613 !important;
+        border-color: #4c8613 !important;
+    }
+
+}

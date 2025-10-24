@@ -1,0 +1,107 @@
+@startuml
+
+abstract class Player {
+- seat: SeatName
+- hand: Map<SuitName, String>
++ Player(SeatName, String, String, String, String)
+}
+
+class AutomaticPlayer {
+- strategy: Strategy
++ AutomaticPlayer(SeatName, String, String, String, String, Strategy)
++ setStrategy(Strategy): void
++ getStrategy(): Strategy
++ playCard(SuitName, Round): Pair<String, char>
+}
+
+class UserPlayer {
++ UserPlayer(SeatName, String, String, String, String)
++ playCard(SuitName, int): void
+}
+
+
+abstract class Strategy {
+- observedSuits: Map<SeatName, Map<SuitName, String>>
+- dummyHand: Map<SuitName, String>
+- strongestSuit: SuitName
+- initialDeclarerTrumpNumber: int
++ Strategy()
++ setStrongestSuit(SuitName, Map<SuitName, String>, Map<SuitName, String>): void
++ initializeDeclarerTrumpNumber(SuitName, Map<SuitName, String>, Map<SuitName, String>): void
++ initializeDummyHand(Map<SuitName, String>): void
++ initializeObservedSuits(SeatName, SeatName): void
++ execute(SeatName, SuitName, Map<SuitName,
+    String>, Round): Pair<String, char>
+
+# <<abstract>> updateObservedSuits(SeatName, SuitName, char): void
+# <<abstract>> selectCardPos1(Map<SuitName, String>, SuitName, SeatName): Pair<String, char>
+- selectCardPos2(Map<SuitName, String>, SuitName, Round): Pair<String, char>
+selectCardPos34(Map<SuitName, String>, SuitName, Round): Pair<String, char>
+- findShortestNonEmptySuit(Map<SuitName, String>): SuitName
+- findShortestNonTrumpSuitIfPossible(Map<SuitName, String>, SuitName): SuitName
+- findLongestSuit(Map<SuitName, String>): void
+}
+
+class SimpleDeclarerStrategy {
++ SimpleDeclarerStrategy()
++ updateObservedSuits(SeatName, SuitName, char): void
+# selectCardPos1(Map<SuitName, String>, SuitName, SeatName): Pair<String, char>
+}
+
+class OpponentStrategy {
++ OpponentStrategy()
++ updateObservedSuits(SeatName, SuitName, char): void
+# selectCardPos1(Map<SuitName, String>, SuitName, SeatName): Pair<String, char>
+}
+
+class AdvancedDeclarerStrategy {
++ AdvancedDeclarerStrategy()
++ updateObservedSuits(SeatName, SuitName, char): void
+# selectCardPos1(Map<SuitName, String>, SuitName, SeatName): Pair<String, char>
+
+# selectPlay(SuitName, Map<SuitName, String>,
+    Round): Pair<String, Character>
+# selectLead(SeatName, SuitName, Map<SuitName, String>,
+    ): Pair<String, Character>
+- chooseSuitForLead(SuitName, Map<SuitName, String>): SuitName
+- generateOpponentHands(SuitName, Map<SuitName, String>, Map<SeatName, Map<SuitName, String>>): Pair<String, String>
+- postorder(Node): void
+- determineRemainderCards(SuitName, Map<SeatName, Map<SuitName, String>>
+    ): ArrayList<char>
+}
+
+class Node {
+- child: Node
+- sibling: Node
+- parent: Node
+- isNoTrump: bool
+- score: double
+- maxScoreSiblings: double
+- round: char[]
+- hands: List<char>[]
++ Node(Node, double, List<char>[], char[])
++ getSelectedLead(): char
++ process(Node): void
++ createChildren(): Node
+- playCardInNode(int, char): void
+- transformCardToIntInNode(char, bool): int
+- scoreOfRound(): double
+- listDifferentLeadsPerPartners(String): List<Pair<Character, Character>>
+- generatePossibleRounds(): List<char[]>
+}
+
+
+Match o-- Player
+Match *-- Round
+
+Player <|-- AutomaticPlayer
+Player <|-- UserPlayer
+
+Strategy <|-- SimpleDeclarerStrategy
+Strategy <|-- OpponentStrategy
+Strategy <|-- AdvancedDeclarerStrategy
+
+Node <.. AdvancedDeclarerStrategy
+AutomaticPlayer o-- Strategy
+
+@enduml

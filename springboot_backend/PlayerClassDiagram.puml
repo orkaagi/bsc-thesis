@@ -1,0 +1,81 @@
+@startuml
+
+interface PlayerInterface {
+- seat: SeatName
+- suits: Map<String, String>
++ PlayerInterface(SeatName, String, String, String, String)
++ ~playCard(String, int): void
+}
+
+interface AutomaticInterface {
+- observedSuits: Pair<Map<String, String>, Map<String, String>>
++ AutomaticInterface()
++ PlayerInterface(String, String, String, String,
+    String, String, String, String)
++ ~playAutomatic(): void
++ ~playAutomaticSmart(): void
+}
+
+class Opponent {
+- seat: SeatName
+- suits: Map<String, String>
++ Player(SeatName, String, String, String, String)
++ playCard(String, int): void
+}
+
+abstract class Declarer {
+- seat: SeatName
+- suits: Map<String, String>
+- observedSuits: Map<String, String>[]
++ Player(SeatName, String, String, String,
+    String, Map<String, String>[])
++ playCard(String)
+- playsAutomatic(String): Pair<String, char>
+- playsAutomaticSmart(String, String): char
+- encodeHands(String): List<char>
+- generateOpponentHands (String, String): Pair<String, String>
+}
+
+class LVL1 {
+- seat: SeatName
+- suits: Map<String, String>
+- observedSuits: Map<String, String>[]
++ Player(SeatName, String, String, String,
+ String, Map<String, String>[])
++ playCard(String)
+- playsAutomatic(String): Pair<String, char>
+- encodeHands(String): List<char>
+}
+
+class LVL2 {
+- seat: SeatName
+- suits: Map<String, String>
+- observedSuits: Map<String, String>[]
++ Player(SeatName, String, String, String,
+    String, Map<String, String>[])
++ playCard(String)
+- playsAutomatic(String): Pair<String, char>
+- playsAutomaticSmart(String, String): char
+- encodeHands(String): List<char>
+- generateOpponentHands (String, String): Pair<String, String>
+}
+
+class LVL3 {
+- seat: SeatName
+- suits: Map<String, String>
+- observedSuits: Map<String, String>[]
++ Player(SeatName, String, String, String,
+    String, Map<String, String>[])
++ playCard(String)
+- playsAutomaticSmart(String, String): char
+- encodeHands(String): List<char>
+- generateOpponentHands (String, String): Pair<String, String>
+}
+
+PlayerInterface <|--  Opponent
+PlayerInterface <|--  Declarer
+Declarer <|--  LVL1
+Declarer <|--  LVL2
+Declarer <|--  LVL3
+
+@enduml

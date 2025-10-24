@@ -1,0 +1,18 @@
+@startuml
+
+:Felhasználó: as user
+
+user --> (Új játék)
+
+(Új játék) .. (Paraméterek megadása) : <<includes>>
+(Paraméterek megadása) .. (Játék betöltése): <<invokes>>
+(Játék betöltése) .. (Játék vége) : <<preceeds>>
+(Játék vége) .. (Eredmények frissítése) : <<invokes>>
+(Játék betöltése) .. (Lap kijátszás) : <<preceeds>>
+
+user --> (Regisztráció)
+user --> (Bejelentkezés)
+
+()
+
+@enduml

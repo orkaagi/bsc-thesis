@@ -1,0 +1,85 @@
+@startuml
+
+class Node {
+}
+
+class Match {
+}
+
+class Round {
+}
+
+class Player {
+- seat: SeatName
+- hand: Map<SuitName, String>
++ Player(SeatName, String, String, String, String)
+}
+
+class Opponent {
++ Opponent(SeatName, String, String, String, String)
++ playCard(SuitName, int): void
+}
+
+class Declarer {
+- strategy: Strategy
++ Declarer(SeatName, String, String, String, String, Strategy)
++ setStrategy(Strategy)
++ playCard(char[] round): Pair<String, Character>
+}
+
+abstract class Strategy {
+- round: char[]
+- observedSuits: Map<SeatName, Map<SuitName, String>>
++ Strategy()
++ <<abstract>> execute(SeatName seatName, Map<SuitName,
+    String> hands, char[] round): Pair<String, char>
+# updateObservedSuits(): void
+# encodeHands(String): List<char>
+}
+
+class AutomaticStrategy {
++ AutomaticStrategy()
++ execute(SeatName seatName, Map<SuitName,
+    String> hands, char[] round): Pair<String, char>
+}
+
+class AutomaticSmartStrategy {
++ AutomaticSmartStrategy()
++ execute(SeatName seatName, Map<SuitName,
+    String> hands, char[] round): Pair<String, char>
+}
+
+class Node {
+- child: Node
+- sibling: Node
+- parent: Node
+- score: double
+-maxScoreSiblings: double
+- round: char[]
+- hands: List<char[]>
++ Node(Node, double, List<char>[], char[])
++ getSelectedLead(SeatName): char
++ process(Node): void
++ createChildren(): Node
+- playCardInNode(int, char): void
+- transformCardToIntInNode(char): int
+- scoreOfRound(): double
+- listDifferentLeadsPerPartners(String):
+    List<Pair<Character, Character>>
+- generatePossibleRounds(): List<char[]>
+}
+
+Match --> Player
+Match o-- Round
+
+Player <|-- Opponent
+Player <|-- Declarer
+
+Declarer o--> Strategy
+
+Strategy <|-- AutomaticStrategy
+Strategy <|-- AutomaticSmartStrategy
+
+Node <.. AutomaticSmartStrategy
+
+@enduml

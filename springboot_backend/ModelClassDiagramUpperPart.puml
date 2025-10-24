@@ -1,0 +1,104 @@
+@startuml
+
+class Match {
+- score_NS: int
+- score_EW: int
+- contract: String
+- players: Map<SeatName, Player>
+- round: Round
+- gameId: int
+- isGameOver: bool
++ Match()
++ Match(int, int, String)
++ resetRound(): void
++ getBid(): int
++ getPlayerBySeat(): Player
++ updatePlayers(SeatName, Player): void
++ playUserCard(SeatName, String, char, int): void
++ playAutomaticCard(SeatName)
+- getTrump(): SuitName
+- checkVoid(SeatName, SuitName): bool
+- isPlayValidForCurrentRound(SeatName, String, char)
+- manageEffectOfCall(String): void
+}
+
+class Round {
+- starterIndex: int
+- currentIndex: int
+- isNewRound: bool
+- <<static>> positions: Map<SeatName, Integer> {readOnly}
+- cards: Pair<String, char>[]
++ Round()
++ Round(int, int, Pair<String, char>[])
++ getLeadSuit(): SuitName
++ getLeadCard(): char
++ addToRound(SeatName, String, char, bool): String
++ getRoundWinner(): Pair<SeatName, int>
++ resetCards(): void
++ <<static>> transformCardToInt(char): int
+- evaluateRound(SuitName): String
+}
+
+abstract class Player {
+- seat: SeatName
+- hand: Map<SuitName, String>
++ Player(SeatName, String, String, String, String)
+}
+
+class AutomaticPlayer {
+- strategy: Strategy
++ AutomaticPlayer(SeatName, String, String, String, String, Strategy)
++ setStrategy(Strategy): void
++ getStrategy(): Strategy
++ playCard(SuitName, Round): Pair<String, char>
+}
+
+class UserPlayer {
++ UserPlayer(SeatName, String, String, String, String)
++ playCard(SuitName, int): void
+}
+
+
+abstract class Strategy {
+}
+
+class SimpleDeclarerStrategy {
+}
+
+class OpponentStrategy {
+}
+
+class AdvancedDeclarerStrategy {
+}
+
+class Node {
+}
+
+enum SeatName {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+}
+
+enum SuitName {
+    SPADES,
+    HEARTS,
+    DIAMONDS,
+    CLUBS
+}
+
+Match o-- Player
+Match *-- Round
+
+Player <|-- AutomaticPlayer
+Player <|-- UserPlayer
+
+Strategy <|-- SimpleDeclarerStrategy
+Strategy <|-- OpponentStrategy
+Strategy <|-- AdvancedDeclarerStrategy
+
+Node <.. AdvancedDeclarerStrategy
+AutomaticPlayer o-- Strategy
+
+@enduml

@@ -1,0 +1,79 @@
+@startuml
+
+class Node {
+}
+
+class Match {
+- score_NS: int
+- score_EW: int
+- contract: String
+- players: Map<SeatName, Player>
+- round: Round
++ Match()
++ Match(int, int, String, Player, Player, Player, Player, int, int)
++ getNorth(): Player
++ getSouth(): Player
++ getPlayerBySeat(): Player
++ resetRound(): void
++ playCards(SeatName, String, char, int): void
+- checkVoid(String, String): bool
+- updateScores(String result): void
+}
+
+class Round {
+- int starterIndex: int
+- int currentIndex: int
+- boolean isNewRound: bool
+- round: Pair<String, char>[]
+- <<static>> positions: Map<String, Integer> {readOnly}
++ Round()
++ Round(int, int, Pair<String, char>[])
++ addToRound(SeatName, String, char, bool): String
+- evaluateRound(): String
+- transformCardToInt(char): int
+}
+
+class Player {
+- seat: SeatName
+- hand: Map<SuitName, String>
++ Player(SeatName, String, String, String, String)
+}
+
+class Opponent {
++ Opponent(SeatName, String, String, String, String)
++ playCard(SuitName, int): void
+}
+
+class Declarer {
+- strategy: Strategy
++ Declarer(SeatName, String, String, String, String, Strategy)
++ setStrategy(Strategy)
++ playCard(char[] round): Pair<String, Character>
+}
+
+abstract class Strategy {
+}
+
+class AutomaticStrategy {
+}
+
+class AutomaticSmartStrategy {
+}
+
+class Node {
+}
+
+Match --> Player
+Match o-- Round
+
+Player <|-- Opponent
+Player <|-- Declarer
+
+Declarer o--> Strategy
+
+Strategy <|-- AutomaticStrategy
+Strategy <|-- AutomaticSmartStrategy
+
+Node <.. AutomaticSmartStrategy
+
+@enduml

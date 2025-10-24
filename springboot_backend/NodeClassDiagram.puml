@@ -1,0 +1,25 @@
+@startuml
+
+class Node {
+- child: Node
+- sibling: Node
+- parent: Node
+- isNoTrump: bool
+- score: double
+- maxScoreSiblings: double
+- round: char[]
+- hands: List<char>[]
++ Node(Node, double, List<char>[], char[])
++ getSelectedLead(): char
++ process(Node): void
++ createChildren(): Node
+- playCardInNode(int, char): void
+- transformCardToIntInNode(char, bool): int
+- scoreOfRound(): double
+- listDifferentLeadsPerPartners(String): List<Pair<Character, Character>>
+- generatePossibleRounds(): List<char[]>
+}
+
+AutomaticSmartStrategy --> Node
+
+@enduml

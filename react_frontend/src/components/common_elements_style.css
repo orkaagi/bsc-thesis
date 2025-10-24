@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+    header, footer {
+        background-color: #22390b !important;
+        opacity: 0.8;
+        font-family: 'Poppins', sans-serif !important;
+    }    
+    
+    h1 {
+        font-family: 'Poppins', sans-serif !important;
+        color: white !important;
+    }
+
+    h2 {
+        color: #31540c;
+    }
+
+    #profile-options {
+        background-color: #4c8613 !important;
+        font-size: large !important;
+        font-family: 'Poppins', sans-serif !important;
+        opacity: 0.9;
+    }
+
+    #nav-to-main, #nav-to-start, #nav-to-results, #nav-to-register, #nav-to-login, #log-out, #nav-to-help {
+        background-color: #dde483 !important;
+        font-size: large !important;
+        opacity: 0.9;
+        color:  #22390b !important;
+        text-decoration: none !important;
+    }
+
+    #nav-to-main:hover, #nav-to-start:hover, #nav-to-results:hover, #nav-to-register:hover, #nav-to-login:hover, #log-out:hover, #nav-to-help:hover {
+        background-color: #b1c64f !important;
+        font-size: large !important;
+        color: #22390b !important;
+        text-decoration: none !important;
+    }
+
+    a {        
+        font-size: large !important;
+        color: #4c8613 !important;
+    }
+
+    a:visited {
+        font-size: large !important;
+        color: #22390b !important;
+    }
+
+    #nav-to-main-current, #nav-to-start-current, #nav-to-results-current, #nav-to-register-current, #nav-to-login-current, #nav-to-help-current {
+        background-color: #4c8613 !important;
+        color: white !important;
+        text-decoration: none !important;
+    }
+    
+}

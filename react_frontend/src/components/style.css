@@ -1,0 +1,69 @@
+#main {
+    display: grid;
+    justify-content: center;
+}
+
+#current-round > div {
+    text-align: center;
+}
+
+#current-round {
+    display: grid;
+    justify-content: center;
+    padding: 10%;
+    margin: auto;
+}
+
+#round-north, #round-west, #round-east, #round-south, #round-north-filled, #round-west-filled, #round-east-filled, #round-south-filled {
+    border-radius: 0.5rem;
+    border: 2px solid #62d3f2;
+    margin: auto;
+    padding: 1em;
+    width: 3.56rem;
+    min-width: 3.56rem;
+    height: 4.5em;
+}
+
+#round-north-filled, #round-west-filled, #round-east-filled, #round-south-filled {
+    background: #a1eaef;
+}
+
+.list-group-item {
+    flex-grow: 1;
+    min-height: 2.875rem;
+    height: 100%;
+    width: 4.64625rem;
+}
+
+.list-group-item.spades, .col.spades, .row.spades {
+    color:rgb(0, 0, 128);
+}
+
+.list-group-item.hearts, .col.hearts, .row.hearts {
+    color:rgb(178, 34, 34);
+}
+
+.list-group-item.diamonds, .col.diamonds, .row.diamonds {
+    color:rgb(255, 69, 8);
+}
+
+.list-group-item.clubs, .col.clubs, .row.clubs {
+    color:rgb(46, 139, 87);
+}
+
+section {
+    font-size: larger;
+}
+
+    /*
+    #f8f8f1
+    #f1f0c1
+    #dde483
+    #b1c64f
+    #6ca229
+    #4c8613
+    #3c6f0d
+    #31540c
+    #22390b
+    #18220a
+    */
